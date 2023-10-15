@@ -1,2 +1,2 @@
 # Reading-PNG-image
-Reading PNG images without any external libraries
+Reading PNG images in python without any external libraries

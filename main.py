@@ -27,16 +27,17 @@ def unpack_IHDR_data(IHDR_data):
     compression_method = int(IHDR_data[20:22], 16) # Compression method = 1 byte
     filter_method = int(IHDR_data[22:24], 16) # Filter method = 1 byte
     interlace_method = int(IHDR_data[24:26], 16) # Interlace method = 1 byte
+    # The PNG specification only supports 0 as the compression method and 0 as the filter method
     if compression_method != 0:
         raise Exception('invalid compression method')
     if filter_method != 0:
         raise Exception('invalid filter method')
-    if color_type != 6:
-        raise Exception('we only support truecolor with alpha')
-    if bit_depth != 8:
-        raise Exception('we only support a bit depth of 8')
-    if interlace_method != 0:
-        raise Exception('we only support no interlacing')
+    #if color_type != 6:
+    #    raise Exception('we only support truecolor with alpha')
+    #if bit_depth != 8:
+    #    raise Exception('we only support a bit depth of 8')
+    #if interlace_method != 0:
+    #    raise Exception('we only support no interlacing')
     return width, height, bit_depth, color_type, compression_method, filter_method, interlace_method
 
 def main():
@@ -45,7 +46,7 @@ def main():
 
     _, IHDR_data = chunks[0] # First chunk is always 'IHDR'
     width, height, bit_depth, color_type, compression_method, filter_method, interlace_method = unpack_IHDR_data(IHDR_data)
-
-
+    IDAT_data = ''.join(chunk_data for chunk_type, chunk_data in chunks if chunk_type == 'IDAT')
+    print(IDAT_data[len(IDAT_data) - 4:])
 if __name__ == '__main__':
     main()
