@@ -41,12 +41,12 @@ def unpack_IHDR_data(IHDR_data):
     return width, height, bit_depth, color_type, compression_method, filter_method, interlace_method
 
 def main():
-    file_path = 'C:/Users/Aironas/Downloads/Rank.PNG'
+    file_path = ''
     chunks = get_png_file_chunks(file_path)
 
     _, IHDR_data = chunks[0] # First chunk is always 'IHDR'
     width, height, bit_depth, color_type, compression_method, filter_method, interlace_method = unpack_IHDR_data(IHDR_data)
     IDAT_data = ''.join(chunk_data for chunk_type, chunk_data in chunks if chunk_type == 'IDAT')
-    
+
 if __name__ == '__main__':
     main()
