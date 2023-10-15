@@ -47,6 +47,6 @@ def main():
     _, IHDR_data = chunks[0] # First chunk is always 'IHDR'
     width, height, bit_depth, color_type, compression_method, filter_method, interlace_method = unpack_IHDR_data(IHDR_data)
     IDAT_data = ''.join(chunk_data for chunk_type, chunk_data in chunks if chunk_type == 'IDAT')
-    print(IDAT_data[len(IDAT_data) - 4:])
+    
 if __name__ == '__main__':
     main()
